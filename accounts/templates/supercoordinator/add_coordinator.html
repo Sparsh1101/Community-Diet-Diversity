@@ -1,0 +1,73 @@
+{% extends 'partials/layout.html' %}
+
+{% load static %} {% load crispy_forms_tags%}
+
+{%block links %}
+<script src="{% static 'accounts/js/aadhar.js' %}"></script>
+{% endblock %}
+
+{% block title %}
+<title>Coordinator Information</title>
+{% endblock %}
+
+{% block userinfo %}
+{% include 'partials/userinfo.html' %}
+{% endblock %}
+
+{%block content%}
+<div class="d-flex justify-content-center">
+    <div class="card shadow border rounded signup-card">
+        <form action="" method="POST">
+            {{form.media}}
+
+            {% csrf_token %}
+            <h2 class="mb-4">Coordinator Information</h2>
+            <div class="col-md-12">
+                <div class="row">
+                    <div class="col-md-4">
+                        {{form.fname|as_crispy_field}}
+                    </div>
+                    <div class="col-md-4">
+                        {{form.mname|as_crispy_field}}
+                    </div>
+                    <div class="col-md-4">
+                        {{form.lname|as_crispy_field}}
+                    </div>
+                    <small class="form-text text-muted mb-3 mt-0">Numbers and special characters are not allowed except
+                        apostrophe.</small>
+                </div>
+            </div>
+            <div class="col-md-12">
+                <div class="row">
+                    <div class="col-md-6">
+                        {{ form.email|as_crispy_field }}
+                    </div>
+                    <div class="col-md-6">
+                        {{ form.aadhar|as_crispy_field }}
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-12">
+                <div class="row">
+                    <div class="col-md-6">
+                        {{ form.dob|as_crispy_field }}
+                    </div>
+                    <div class="col-md-6">
+                        {{form.mobile_no|as_crispy_field}}
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-12">
+                <div class="row">
+                    <div class="col-md-6">
+                        {{ form.gender|as_crispy_field }}
+                    </div>
+                </div>
+            </div>
+            <div class="d-flex justify-content-around">
+                <input type="submit" class="btn btn-primary btnmedium" value="Submit">
+            </div>
+        </form>
+    </div>
+</div>
+{% endblock %}

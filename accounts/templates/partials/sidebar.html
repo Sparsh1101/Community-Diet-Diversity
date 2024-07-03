@@ -1,0 +1,183 @@
+{% load sidebar_tags %}
+
+<div id="bs-canvas-left" class="bs-canvas bs-canvas-anim bs-canvas-left bg-light h-100 bgPurple sidebar-dark" style="z-index:100;">
+    
+    <div class="bs-canvas-content px-3 py-4">
+        <div class="d-flex justify-content-between">
+            <!-- Sidebar - Brand -->
+            <h4>
+                <a class="sidebar-brand d-flex align-items-center justify-content-center" href="{% url 'accounts:loginlink' %}">
+                    <div class="sidebar-brand-icon rotate-n-15">
+                        <i class="fas fa-laugh-wink"></i>
+                    </div>
+                    <div class="sidebar-brand-text mx-3">Community Diet Diversity</div>
+                </a>
+            </h4>
+            <button type="button" class="bs-canvas-close close" aria-label="Close"><span aria-hidden="true" class="text-light">&times;</span></button>
+        </div>
+
+        <!-- Divider -->
+        <hr class="sidebar-divider" style="color:white; margin:10px 0 0 0;">
+
+        {% if request.user|has_group:"Super Coordinators" %}
+            {% if page_type == "supercoordinator_dashboard" %}
+            <li class="nav-item active">
+            {% else %}
+            <li class="nav-item">
+            {% endif %}
+                <a class="my-nav-link nav-link" href="{% url 'accounts:supercoordinator_dashboard' %}">
+                    <i class="fas fa-fw fa-sitemap"></i>
+                    <span>Organizations</span>
+                </a>
+            </li>
+            {% if page_type == "all_coordinators" %}
+            <li class="nav-item active">
+            {% else %}
+            <li class="nav-item">
+            {% endif %}
+                <a class="my-nav-link nav-link" href="{% url 'accounts:all_coordinators' %}">
+                    <i class="fas fa-fw fa-users"></i>
+                    <span>Coordinators</span>
+                </a>
+            </li>
+            {% if page_type == "reset_password" %}
+            <li class="nav-item active">
+            {% else %}
+            <li class="nav-item">
+            {% endif %}
+                <a class="my-nav-link nav-link" href="{% url 'accounts:supercoordinator_reset_password' %}">
+                    <i class="fas fa-fw fa-lock-open"></i>
+                    <span>Reset Password</span>
+                </a>
+            </li>
+            <li class="nav-item">
+                <a class="my-nav-link nav-link" href="{% url 'accounts:coordinators_data_download'%}">
+                    <i class="fa fa-download" aria-hidden="true"></i>
+                    <span>Coordinators Data</span>
+                </a>
+            </li>
+
+        {% elif request.user|has_group:"Coordinators" %}
+            {% if page_type == "coordinator_dashboard" %}
+            <li class="nav-item active">
+            {% else %}
+            <li class="nav-item">
+            {% endif %}
+                <a class="my-nav-link nav-link" href="{% url 'accounts:coordinator_dashboard' %}">
+                    <i class="fas fa-fw fa-users"></i>
+                    <span>Teachers</span>
+                </a>
+            </li>
+            {% if page_type == "all_sessions" %}
+            <li class="nav-item active">
+            {% else %}
+            <li class="nav-item">
+            {% endif %}
+                <a class="my-nav-link nav-link" href="{% url 'accounts:all_sessions' %}">
+                    <i class="fas fa-fw fa-calendar-week"></i>
+                    <span>Sessions</span>
+                </a>
+            </li>
+            {% if page_type == "reset_password" %}
+            <li class="nav-item active">
+            {% else %}
+            <li class="nav-item">
+            {% endif %}
+                <a class="my-nav-link nav-link" href="{% url 'accounts:coordinator_reset_password' %}">
+                    <i class="fas fa-fw fa-lock-open"></i>
+                    <span>Reset Password</span>
+                </a>
+            </li>
+            <hr class="sidebar-divider" style="color:white; margin:10px 0 0 0;">
+            <p class="mt-3"style="color: white;text-align: center;">Download Data</p>
+            <li class="nav-item">
+                <a class="my-nav-link nav-link" href="{% url 'accounts:teachers_data_download'%}">
+                    <i class="fa fa-download" aria-hidden="true"></i>
+                    <span>Teachers</span>
+                </a>
+            </li>
+            <li class="nav-item">
+                <a class="my-nav-link nav-link" href="{% url 'accounts:parents_and_students_data_download'%}">
+                    <i class="fa fa-download" aria-hidden="true"></i>
+                    <span>Parents & Students</span>
+                </a>
+            </li>
+
+        {% elif request.user|has_group:"Teachers" %}
+            {% if page_type == "teacher_all_sessions" %}
+            <li class="nav-item active">
+            {% else %}
+            <li class="nav-item">
+            {% endif %}
+                <a class="my-nav-link nav-link" href="{% url 'accounts:teacher_all_sessions' %}">
+                    <i class="fas fa-fw fa-calendar-week"></i>
+                    <span>Sessions</span>
+                </a>
+            </li>
+            {% if page_type == "bulk_register" %}
+            <li class="nav-item active">
+            {% else %}
+            <li class="nav-item">
+            {% endif %}
+                <a class="my-nav-link nav-link" href="{% url 'accounts:bulk_register'%}">
+                    <i class="fas fa-fw fa-user-plus"></i>
+                    <span>Bulk Register</span>
+                </a>
+            </li>
+            <li class="nav-item">
+                <a class="my-nav-link nav-link" href="{% url 'accounts:parents_and_students_data_download'%}">
+                    <i class="fa fa-download" aria-hidden="true"></i>
+                    <span>Parents & Students Data</span>
+                </a>
+            </li>
+
+        {% elif request.user|has_group:"Parents" %}
+            {% if page_type == "parent_dashboard" %}
+            <li class="nav-item active">
+            {% else %}
+            <li class="nav-item">
+            {% endif %}
+                <a class="my-nav-link nav-link" href="{% url 'accounts:parent_dashboard'%}">
+                    <i class="fas fa-fw fa-tachometer-alt"></i>
+                    <span>Dashboard</span>
+                </a>
+            </li>
+
+
+        {% elif request.user|has_group:"Students" %}
+            {% if page_type == "student_dashboard" %}
+            <li class="nav-item active">
+            {% else %}
+            <li class="nav-item">
+            {% endif %}
+                <a class="my-nav-link nav-link" href="{% url 'accounts:student_dashboard'%}">
+                    <i class="fas fa-fw fa-tachometer-alt"></i>
+                    <span>Dashboard</span>
+                </a>
+            </li>
+
+            {% if page_type == "student_module_one" %}
+            <li class="nav-item active">
+            {% else %}
+            <li class="nav-item">
+            {% endif %}
+                <a class="my-nav-link nav-link" href="{% url 'accounts:module_one'%}">
+                    <i class="fas fa-fw fa-pen"></i>
+                    <span>Module One</span>
+                </a>
+            </li>
+            
+            {% if page_type == "student_physique" %}
+            <li class="nav-item active">
+            {% else %}
+            <li class="nav-item">
+            {% endif %}
+                <a class="my-nav-link nav-link" href="{% url 'accounts:physique'%}">
+                    <i class="fas fa-fw fa-pen"></i>
+                    <span>Physique</span>
+                </a>
+            </li>
+
+        {% endif %} 
+    </div>
+</div>

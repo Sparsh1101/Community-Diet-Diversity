@@ -1,0 +1,77 @@
+{% extends 'partials/layout.html' %}
+
+{% load static %} {% load crispy_forms_tags%}
+
+{%block links %}
+<link rel="stylesheet" href="{% static 'accounts/css/style.css' %}">
+{% endblock %}
+
+{% block title %}
+<title>Teacher Dashboard</title>
+{% endblock %}
+
+{% block userinfo %}
+{% include 'partials/userinfo.html' %}
+{% endblock %}
+
+{%block content%}
+
+<div class="d-flex justify-content-around top">
+  <h5><b>Form: </b>{{result.0}}</h5>
+  <h5><b>Start Date: </b>{{result.1}}</h5>
+  {% if not open %}
+  <h5><b>End Date: </b>{{result.2}}</h5>
+  <h5><b>Type: </b>{{result.3}}</h5>
+  {% else %}
+  <h5><b>End Date: </b>Ongoing</h5>
+  <h5><b>Type: </b>{{result.2}}</h5>
+  {% endif %}  
+</div>
+
+{% if filled_students%}
+  <div class="teacher_info_header">
+    <h3>SUBMITTED BY</h3>
+  </div>
+  <table class="table" style="text-align:center;">
+    <thead>
+      <tr>
+        <th style="width:50%;">Student Name</th>
+        <th style="width:50%;">Submission Time</th>
+      </tr>
+    </thead>
+    <tbody>
+      {% for student in filled_students %}
+        <tr>
+          {% for data in student%}
+            <td>{{data}}</td>
+          {% endfor %}
+        </tr>
+      {% endfor %}
+    </tbody>
+  </table>
+{% endif %}
+
+{% if not_filled_students %}
+  <div class="teacher_info_header">
+    <h3>NOT SUBMITTED BY</h3>
+  </div>
+  <table class="table" style="text-align:center;">
+    <thead>
+      <tr>
+        <th style="width:50%;">Student Name</th>
+        <th style="width:50%;">Submission Time</th>
+      </tr>
+    </thead>
+    <tbody>
+      {% for student in not_filled_students %}
+        <tr>
+          {% for data in student%}
+            <td>{{data}}</td>
+          {% endfor %}
+        </tr>
+      {% endfor %}
+    </tbody>
+  </table>
+{% endif %}
+
+{% endblock %}

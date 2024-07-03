@@ -1,0 +1,61 @@
+{% extends 'partials/layout.html' %}
+
+{% load static %} {% load crispy_forms_tags %}
+
+{%block links %}
+<link rel="stylesheet" href="{% static 'accounts/css/style.css' %}">
+{% endblock %}
+
+{% block title %}
+<title>Physique</title>
+{% endblock %}
+
+{% block userinfo %}
+{% include 'partials/userinfo.html' %}
+{% endblock %}
+
+{% block content %}
+<div class="container moduleform">
+    <div class="consent-card border rounded shadow mt-3" style="padding:1rem 3rem">
+        <div class="row">
+            <h2 class="mb-3 text-center">My Physique</h2>
+            <div class="col-md-12">
+                <form action="" method="POST">
+                    {% csrf_token %}
+                    <div class="row correctlabel">
+                        <div class="col-md-12 mb-3">
+                            <p class="fw-bold mb-2">1. {{form.weight.label_tag}}</p>
+                            {{form.weight|as_crispy_field}}
+                        </div>
+                        <div class="col-md-12 mb-3">
+                            <p class="fw-bold mb-2">2. {{form.height.label_tag}}</p>
+                            {{form.height|as_crispy_field}}
+                        </div>
+                        <div class="col-md-12 mb-3">
+                            <p class="fw-bold mb-2">3. {{form.waist.label_tag}}</p>
+                            <center><img class="physiqueImg" src="/static/accounts/img/waist.jpg"></center>
+                            <br>
+                            {{form.waist|as_crispy_field}}
+                        </div>
+                        <div class="col-md-12 mb-3">
+                            <p class="fw-bold mb-2">4. {{form.hip.label_tag}}</p>
+                            <center><img class="physiqueImg" src="/static/accounts/img/waist.jpg"></center>
+                            <br>
+                            {{form.hip|as_crispy_field}}
+                        </div>
+                        <div class="d-flex justify-content-around">
+                            <div>
+                                <input type="submit" class="btn btn-warning btnmedium" value="Save draft"
+                                    formaction="{% url 'accounts:physiquedraft' %}">
+                            </div>
+                            <div>
+                                <input type="submit" class="btn btn-primary btnmedium" value="Submit">
+                            </div>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

@@ -1,0 +1,36 @@
+{% extends 'partials/layout.html' %}
+
+{% load static %} {% load crispy_forms_tags%}
+
+{%block links %}
+<link rel="stylesheet" href="{% static 'accounts/css/style.css' %}">
+{% endblock %}
+
+{% block title %}
+<title>Super Coordinator Dashboard</title>
+{% endblock %}
+
+{% block userinfo %}
+{% include 'partials/userinfo.html' %}
+{% endblock %}
+
+{%block content%}
+
+<center><h1>Organizations</h1></center>
+
+<div class="d-flex justify-content-end mb-4">
+    <a href="{% url 'accounts:add_organization_form' %}" class="btn btn-info btnmedium">Add Organization</a>
+</div>
+<div class="item-container d-flex" id="parentCard">
+{% for org in organizations %}
+    <div class="my-card card shadow border rounded">
+        <div class="card-body">
+            <center><b><h3 class="card-title mb-3">{{ org.name }}</h3></b></center>
+            <h6 class="card-text mb-3"><b>Type: </b> {{ org.type }}</h6>
+            <center><a href="{% url 'accounts:view_coordinators' org.id %}" class="btn btn-primary btnmedium">View Info</a></center>
+        </div>
+    </div>
+    {% endfor %}
+</div>
+
+{% endblock %}

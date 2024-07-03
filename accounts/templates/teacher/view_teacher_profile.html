@@ -1,0 +1,63 @@
+{% extends 'partials/layout.html' %}
+
+{% load static %} {% load crispy_forms_tags%}
+
+{%block links %}
+<link rel="stylesheet" href="{% static 'accounts/css/style.css' %}">
+{% endblock %}
+
+{% block title %}
+<title>My Profile</title>
+{% endblock %}
+
+{% block userinfo %}
+{% include 'partials/userinfo.html' %}
+{% endblock %}
+
+{%block content%}
+
+<center><h1>My Profile</h1></center>
+
+
+<div class="d-flex flex-column align-items-center">
+    <div class="my-profile-card card shadow border rounded mb-3">
+        <img class="profile-pic mt-2" class="profile-pic" src={{request.user.teacherincharge.profile_pic.url}} >
+        <div class="card-body">
+            <table class="table table-striped"> 
+                <tbody>
+                  <tr>
+                    <th scope="row">Name</th>
+                    <td>{{ teacher.fname }} {{ teacher.mname }} {{ teacher.lname }}</td>
+                  </tr>
+                  <tr>
+                    <th scope="row">Email</th>
+                    <td>{{ teacher.email }}</td>
+                  </tr>
+                  <tr>
+                    <th scope="row">Mobile Number</th>
+                    <td>{{ teacher.mobile_no }}</td>
+                  </tr>
+                  <tr>
+                    <th scope="row">Aadhar Card Number</th>
+                    <td>{{ teacher.aadhar }}</td>
+                  </tr>
+                  <tr>
+                    <th scope="row">Date Of Birth</th>
+                    <td>{{ teacher.dob }}</td>
+                  </tr>
+                  <tr>
+                    <th scope="row">Gender</th>
+                    <td>{{ teacher.gender }}</td>
+                  </tr>
+                  <tr>
+                    <th scope="row">Organization</th>
+                    <td>{{ teacher.organization }}</td>
+                  </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+    <a href="{% url 'accounts:edit_teacher_profile' %}" class="btn btn-primary btnmedium">Edit</a>
+</div>    
+
+{% endblock %}

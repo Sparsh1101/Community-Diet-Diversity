@@ -1,0 +1,29 @@
+{% extends 'partials/layout.html' %}
+
+{% load static %} {% load crispy_forms_tags%}
+
+{% block title %}
+<title>Registration</title>
+{% endblock %}
+
+{%block content%}
+<div class="container forgotContainer col-md-10">
+    <div class="consent-card shadow mt-3 p-3 bg-white rounded border">
+        <form action="" method="POST">
+            {{form.media}}
+            {% csrf_token %}
+            <h3 class="mb-4 d-flex justify-content-around">Enter Student's Date of Birth</h3>
+            <div class="container">
+                <div class="row justify-content-md-center">
+                    <div class="col-md-6">
+                        {{ form.dob|as_crispy_field }}
+                    </div>
+                </div>
+            </div>
+            <div class="d-flex justify-content-around">
+                <input type="submit" class="btn btn-primary btnmedium" value="Next">
+            </div>
+        </form>
+    </div>
+</div>
+{% endblock %}

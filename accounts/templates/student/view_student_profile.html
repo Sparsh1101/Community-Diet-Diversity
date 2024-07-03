@@ -1,0 +1,107 @@
+{% extends 'partials/layout.html' %}
+
+{% load static %} {% load crispy_forms_tags%}
+
+{%block links %}
+<link rel="stylesheet" href="{% static 'accounts/css/style.css' %}">
+{% endblock %}
+
+{% block title %}
+<title>My Profile</title>
+{% endblock %}
+
+{% block userinfo %}
+{% include 'partials/userinfo.html' %}
+{% endblock %}
+
+{%block content%}
+
+<center><h1>My Profile</h1></center>
+
+
+<div class="d-flex flex-column align-items-center">
+    <div class="my-profile-card card shadow border rounded mb-3">
+        <img class="profile-pic mt-2" class="profile-pic" src={{request.user.studentsinfo.profile_pic.url}} >
+        <div class="card-body">
+            <table class="table table-striped"> 
+                <tbody>
+                  <tr>
+                    <th scope="row">Name</th>
+                    <td>{{ student.fname }} {{ student.mname }} {{ student.lname }}</td>
+                  </tr>
+                  <tr>
+                    <th scope="row">Email</th>
+                    <td>{{ student.email }}</td>
+                  </tr>
+                  <tr>
+                    <th scope="row">Unique Number</th>
+                    <td><h6 class="card-text">{{ student.unique_no }}</td>
+                  </tr>
+                  <tr>
+                    <th scope="row">Mobile Number</th>
+                    <td>{{ student.mobile_no }}</td>
+                  </tr>
+                  <tr>
+                    <th scope="row">Aadhar Card Number</th>
+                    <td>{{ student.aadhar }}</td>
+                  </tr>
+                  <tr>
+                    <th scope="row">Date Of Birth</th>
+                    <td>{{ student.dob }}</td>
+                  </tr>
+                  <tr>
+                    <th scope="row">Gender</th>
+                    <td>{{ student.gender }}</td>
+                  </tr>
+                  <tr>
+                    <th scope="row">Pin Code</th>
+                    <td>{{ student.pincode }}</td>
+                  </tr>
+                  <tr>
+                    <th scope="row">State</th>
+                    <td>{{ student.state }}</td>
+                  </tr>
+                  <tr>
+                    <th scope="row">City</th>
+                    <td>{{ student.city }}</td>
+                  </tr>
+                  <tr>
+                    <th scope="row">Organization</th>
+                    <td>{{ student.organization }}</td>
+                  </tr>
+                  <tr>
+                    <th scope="row">Parent's Education</th>
+                    <td>{{ student.secondary_reg.edu }}</td>
+                  </tr>
+                  <tr>
+                    <th scope="row">Parent's Occupation</th>
+                    <td>{{ student.secondary_reg.occupation }}</td>
+                  </tr>
+                  <tr>
+                    <th scope="row">Religious Belief</th>
+                    <td>{{ student.secondary_reg.religion }}</td>
+                  </tr>
+                  <tr>
+                    <th scope="row">Type Of Family</th>
+                    <td>{{ student.secondary_reg.type_of_family }}</td>
+                  </tr>
+                  <tr>
+                    <th scope="row">Number Of Family Members</th>
+                    <td>{{ student.secondary_reg.no_of_family_members }}</td>
+                  </tr>
+                  <tr>
+                    <th scope="row">Family Income</th>
+                    <td>{{ student.secondary_reg.family_income }}</td>
+                  </tr>
+                  <tr>
+                    <th scope="row">Ration Card Color</th>
+                    <td>{{ student.secondary_reg.ration_card_color }}</td>
+                  </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+    <a href="{% url 'accounts:edit_student_profile' %}" class="btn btn-primary btnmedium">Edit</a>
+</div>    
+
+{% endblock %}

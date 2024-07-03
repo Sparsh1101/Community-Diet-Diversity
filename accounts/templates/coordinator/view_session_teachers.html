@@ -1,0 +1,88 @@
+{% extends 'partials/layout.html' %}
+
+{% load static %} {% load crispy_forms_tags%}
+{% load custom_filters %}
+
+{%block links %}
+<script src="{% static 'accounts/js/message_hider.js' %}"></script>
+<link rel="stylesheet" href="{% static 'accounts/css/style.css' %}">
+{% endblock %}
+
+{% block title %}
+<title>Coordinator Dashboard</title>
+{% endblock %}
+
+{% block userinfo %}
+{% include 'partials/userinfo.html' %}
+{% endblock %}
+
+{%block content%}
+<div id="message">
+    {% if my_messages %}
+        <div class="mb-3 alert alert-success" role="alert">
+            {{ my_messages.success }}
+        </div>
+    {% endif %}
+</div>
+
+<center><h2 class="mb-3">Session Information</h2></center>
+<div class="col-md-10 offset-md-1 mb-3">
+    <ul class="list-group">
+        <h6>
+            <li class="list-group-item"><b>Name: </b>{{ session.name }}</li>
+            <li class="list-group-item"><b>Start Date: </b>{{ session.start_date }}</li>
+            {% if end_date == None %}
+                <li class="list-group-item"><b>End Date: </b> Ongoing</li>
+            {% else %}
+                <li class="list-group-item"><b>End Date: </b>{{ session.end_date }}</li>
+            {% endif %}
+        </h6>
+    </ul>
+</div>
+
+<center><h2>Teachers</h2></center>
+{% if open_id == 1 %}
+<div class="d-flex justify-content-end mb-4">
+    <a href="{% url 'accounts:add_session_teachers' session.id %}" class="btn btn-info btnmedium me-3">Add Teachers via Bulk</a>
+    <a href="{% url 'accounts:add_session_teachers_list' session.id %}" class="btn btn-info btnmedium">Add Teachers via List</a>
+</div>
+{% endif %}
+
+<div class="item-container d-flex" id="parentCard">
+{% for teacher in teachers %}
+    <div class="my-card card shadow border rounded">
+        <div class="card-body">
+            <center>
+                <b>
+                    <h3 class="card-title mb-3">{{ teacher.fname }} {{ teacher.lname }}</h3>
+                </b>
+            </center>
+            <h6 class="card-text"><b>Mobile Number: </b> {{ teacher.mobile_no }}</h6>
+            <h6 class="card-text mb-3"><b>Email: </b> {{ teacher.email }}</h6>
+            {% if open_id == 1 %}
+            <center><a class="btn btnmedium btn-danger" href="{% url 'accounts:view_session_teachers' session.id 1 %}" data-toggle="modal" data-target="{{"#logoutModal"|addstr:teacher.id}}">Remove</a></center>
+            {% endif %}
+        </div>
+    </div>
+    <div class="modal fade" style="position:absolute; left:35%; width: 40%" id="{{"logoutModal"|addstr:teacher.id}}" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
+        aria-hidden="true">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalLabel">Are you sure?</h5>
+                    <button class="close" type="button" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">×</span>
+                    </button>
+                </div>
+                <div class="modal-body">If you select "Remove" all associated student data will be lost.<br>Select "Switch Teacher" below to replace the current teacher and preserve all students data.</div>
+                <div class="modal-footer d-flex justify-content-around">
+                    <button class="btn btn-secondary greybutton" type="button" data-dismiss="modal">Cancel</button>
+                    <a class="btn btn-primary btnmedium" href="{% url 'accounts:switch_teachers_list' session.id teacher.id %}">Switch Teacher</a>
+                    <a class="btn btn-danger btnmedium" href="{% url 'accounts:remove_session_teacher' session.id teacher.id %}">Ignore and Remove</a>
+                </div>
+            </div>
+        </div>
+    </div>
+    {% endfor %}
+</div>
+{% endblock %}

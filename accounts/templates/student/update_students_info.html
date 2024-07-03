@@ -1,0 +1,150 @@
+{% extends 'partials/layout.html' %}
+
+{% load static %} {% load crispy_forms_tags%}
+
+{%block links %}
+<script src="{% static 'accounts/js/state_city.js' %}"></script>
+<script src="{% static 'accounts/js/aadhar.js' %}"></script>
+{% endblock %}
+
+{% block title %}
+<title>Edit Profile</title>
+{% endblock %}
+
+{% block userinfo %}
+{% include 'partials/userinfo.html' %}
+{% endblock %}
+
+{%block content%}
+
+<div class="d-flex justify-content-center">
+    <div class="card shadow border rounded signup-card">
+        <form action="" method="POST" enctype="multipart/form-data">
+            {{form.media}}
+
+            {% csrf_token %}
+            <h2 class="mb-4">
+                <center>Update Profile</center>
+            </h2>
+            <div class="col-md-12">
+                {{ form.profile_pic|as_crispy_field }}
+            </div>
+            <div class="col-md-12">
+                <div class="row">
+                    <div class="col-md-4">
+                        {{form.fname|as_crispy_field}}
+                    </div>
+                    <div class="col-md-4">
+                        {{form.mname|as_crispy_field}}
+                    </div>
+                    <div class="col-md-4">
+                        {{form.lname|as_crispy_field}}
+                    </div>
+                    <small class="form-text text-muted mb-3 mt-0">Numbers and special characters are not allowed except
+                        apostrophe.</small>
+                </div>
+            </div>
+            <div class="col-md-12">
+                <div class="row">
+                    <div class="col-md-6">
+                        {{ form.email|as_crispy_field }}
+                    </div>
+                    <div class="col-md-6">
+                        {{ form.aadhar|as_crispy_field }}
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-12">
+                <div class="row">
+                    <div class="col-md-6">
+                        {{form.dob|as_crispy_field}}
+                    </div>
+                    <div class="col-md-6">
+                        {{form.mobile_no|as_crispy_field}}
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-12">
+                <div class="row">
+                    <div class="col-md-6">
+                        {{ form.gender|as_crispy_field }}
+                    </div>
+                    <div class="col-md-6">
+                        {{ form.pincode|as_crispy_field }}
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-12">
+                <div class="row">
+                    <div class="col-md-6">
+                        <div class="form-group" id="state-div">
+                        </div>
+                    </div>
+                    <div class="col-md-6">
+                        <div class="form-group" id="city-div">
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <script language="javascript">state_city_main('{{valid_state}}','{{valid_city}}','{{state}}', '{{city}}');</script>
+            <div class="col-md-12">
+                <div class="row">
+                    <div class="col-md-6">
+                        {{ form.organization|as_crispy_field }}
+                    </div>
+                    <div class="col-md-6">
+                        {{ form.unique_no|as_crispy_field }}
+                    </div>
+                </div>
+            </div>
+            {% if adult %}
+                <p class="mb-4 ml-3"><strong>NOTE:</strong> "Parent" below refers to one of your parents.</p>
+            {% else %}
+                <p clas="mb-4 ml-3"><strong>NOTE:</strong> "Parent" below refers to the parent who has been registered along with you.</p>
+            {% endif %}
+            <div class="col-md-12">
+                <div class="row">
+                    <div class="col-md-6">
+                        {{ form2.occupation|as_crispy_field }}
+                    </div>
+                    <div class="col-md-6">
+                        {{ form2.edu|as_crispy_field }}
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-12">
+                <div class="row">
+                    <div class="col-md-6">
+                        {{ form2.religion|as_crispy_field }}
+                    </div>
+                    <div class="col-md-6">
+                        {{form2.type_of_family|as_crispy_field}}
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-12">
+                <div class="row">
+                    <div class="col-md-6">
+                        {{ form2.no_of_family_members|as_crispy_field }}
+                    </div>
+                    <div class="col-md-6">
+                        {{ form2.family_income|as_crispy_field }}
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-12 mb-3">
+                <div class="row">
+                    <div class="col-md-6">
+                        {{ form2.ration_card_color|as_crispy_field }}
+                    </div>
+                </div>
+            </div>
+            <script
+                language="javascript">state_city_main('{{valid_state}}', '{{valid_city}}', '{{state}}', '{{city}}');</script>
+            <div class="d-flex justify-content-center">
+                <input type="submit" class="btn btn-primary btnmedium" value="Update">
+            </div>
+        </form>
+    </div>
+</div>
+{% endblock %}

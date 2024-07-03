@@ -1,0 +1,59 @@
+{% extends 'partials/layout.html' %}
+
+{% load static %} {% load crispy_forms_tags%}
+
+{% block title %}
+<title>Session Information</title>
+{% endblock %}
+
+{% block userinfo %}
+{% include 'partials/userinfo.html' %}
+{% endblock %}
+
+{%block content%}
+<div class="d-flex justify-content-center col-md-8 offset-md-2">
+    <div class="card shadow border rounded signup-card">
+        <form action="" method="POST">
+            {{form.media}}
+            
+            {% csrf_token %}
+            <h2 class="mb-4">Session Information</h2>
+            <div class="col-md-12">
+                {{ form.name|as_crispy_field }}
+            </div>
+            <div id="datetimeparent" class="col-md-12 mb-3">
+                <label id="id_start_date">Start Date<span class="asteriskField">*</span></label>
+            </div>
+            <div class="d-flex justify-content-around">
+                <input type="submit" class="btn btn-primary btnmedium" value="Submit">
+            </div>
+        </form>
+    </div>
+</div>
+<script type="text/javascript">
+    var datetime= document.createElement("INPUT");
+    datetime.setAttribute("type","datetime-local");
+    datetime.setAttribute("name","start_date");
+    datetime.setAttribute("id","id_start_date");
+    datetime.setAttribute("class","form-control");
+    datetime.required=true;
+    var today = new Date();
+    var dd = today.getDate();
+    var mm = today.getMonth()+1; //January is 0!
+    var yyyy = today.getFullYear();
+    var hrs= today.getHours();
+    var mins= today.getMinutes();
+    if(dd<10){
+            dd='0'+dd
+        } 
+        if(mm<10){
+            mm='0'+mm
+        } 
+    
+    today = yyyy+'-'+mm+'-'+dd + 'T'+ hrs+ ':'+ mins;
+    datetime.setAttribute("min",today);
+    parent=document.getElementById("datetimeparent");
+    parent.appendChild(datetime);
+
+</script>
+{% endblock %}

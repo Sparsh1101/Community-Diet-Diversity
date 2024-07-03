@@ -1,0 +1,15 @@
+{% extends 'partials/layout.html' %}
+
+{% load static %} {% load crispy_forms_tags%}
+
+{% block title %}
+<title>Form Closed</title>
+{% endblock %}
+
+{% block userinfo %}
+{% include 'partials/userinfo.html' %}
+{% endblock %}
+
+{%block content%}
+<h3 class="text-center">The form is currently not accepting any responses, try again later!</h3>
+{% endblock %}

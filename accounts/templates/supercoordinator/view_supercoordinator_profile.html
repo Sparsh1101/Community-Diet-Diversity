@@ -1,0 +1,59 @@
+{% extends 'partials/layout.html' %}
+
+{% load static %} {% load crispy_forms_tags%}
+
+{%block links %}
+<link rel="stylesheet" href="{% static 'accounts/css/style.css' %}">
+{% endblock %}
+
+{% block title %}
+<title>My Profile</title>
+{% endblock %}
+
+{% block userinfo %}
+{% include 'partials/userinfo.html' %}
+{% endblock %}
+
+{%block content%}
+
+<center><h1>My Profile</h1></center>
+
+
+<div class="d-flex flex-column align-items-center">
+    <div class="my-profile-card card shadow border rounded mb-3">
+        <img class="profile-pic mt-2" class="profile-pic" src={{request.user.supercoordinator.profile_pic.url}} >
+        <div class="card-body">
+            <table class="table table-striped"> 
+                <tbody>
+                  <tr>
+                    <th scope="row">Name</th>
+                    <td>{{ supercoordinator.fname }} {{ supercoordinator.mname }} {{ supercoordinator.lname }}</td>
+                  </tr>
+                  <tr>
+                    <th scope="row">Email</th>
+                    <td>{{ supercoordinator.email }}</td>
+                  </tr>
+                  <tr>
+                    <th scope="row">Mobile Number</th>
+                    <td>{{ supercoordinator.mobile_no }}</td>
+                  </tr>
+                  <tr>
+                    <th scope="row">Aadhar Card Number</th>
+                    <td>{{ supercoordinator.aadhar }}</td>
+                  </tr>
+                  <tr>
+                    <th scope="row">Date Of Birth</th>
+                    <td>{{ supercoordinator.dob }}</td>
+                  </tr>
+                  <tr>
+                    <th scope="row">Gender</th>
+                    <td>{{ supercoordinator.gender }}</td>
+                  </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+    <a href="{% url 'accounts:edit_supercoordinator_profile' %}" class="btn btn-primary btnmedium">Edit</a>
+</div>    
+
+{% endblock %}

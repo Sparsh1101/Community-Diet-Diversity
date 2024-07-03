@@ -1,0 +1,67 @@
+{% extends 'partials/layout.html' %}
+
+{% load static %} {% load crispy_forms_tags%}
+
+{% block title %}
+<title>Consent Form</title>
+{% endblock %}
+
+{% block userinfo %}
+{% include 'partials/userinfo.html' %}
+{% endblock %}
+
+{%block content%}
+<div class="d-flex justify-content-center">
+    <div class="consent-card parent-consent-card shadow mb-3 p-3 bg-white rounded border">
+        <form action="" method="POST">
+            {% csrf_token %}
+            <h2>Consent Form:</h2>
+            <br>
+            <p>Dear Parents,
+                <br> Due to COVID-19, the school education has taken a big turn towards online. Blending online
+                with the activity, project-oriented learning is extremely important. Using some simple
+                activities, using shared devices,
+                mobiles, and the web is a way to reach out to at least those children who have access to devices
+                and networks. We would like to integrate technology with conventionally used nutrition education
+                programs in such a way
+                that your child can assess the diet quality of his/her and set a goal to improve it further. We
+                would like an opportunity to educate children about the food diversity, the good practices of
+                past, present, often poor
+                quality trusted by commercials, impact of dietary lifestyles, connection between health,
+                nutrition and education and best use of communication technology for better living. We request
+                you to enable your child to participate
+                in our NUTRI-INFOTAINMENT SESSIONS which is a part of a small research project undertaken as a
+                community extension program. For this program, we request interested students to register for
+                the program by filling out
+                the survey. Registered students will participate in 3 NUTRI-INFOTAINMENT SESSIONS which will be
+                for 1 hour (each) at a convenient time on an e-platform which will have nutrition and health
+                awareness sessions such as:
+                1. Basic Nutrition, Diet Diversity and communicating the importance of Micro-greens & Nutri-
+                Garden 2. Importance of Health and Immuno-nutrition with a focus on dietary essential fatty acid
+                ratio (omega 3, omega 6)
+                and total fat content in the diet. 3. JUNCS food consumption, Innovative snack-recipes for
+                children/adolescents and Physical activity patterns. Subject to explicit consent by you the
+                nutrition and BMI parameters of
+                your child will be stored, and visualized on graph against the background of WHO norms. This
+                will be on the website with restricted access. This will not be published until you so specify.
+                In any case we plan to encrypt
+                personal information (like name, address etc.) and the same will not be seen un-encrypted on the
+                site. Looking forward to your child’s involvement and your active participation in our effort to
+                communicate a behavioural
+                change. Any information generated in this program will be used for educational purposes and not
+                published on any social media platform.<br>Thanking you<br>CTARA TEAM
+            </p>
+            <div class="col-md-12">
+                <div class="row">
+                    <div class="col-md-6">
+                        {{ form.consent|as_crispy_field }}
+                    </div>
+                </div>
+            </div>
+            <div class="d-flex justify-content-around">
+                <input type="submit" class="btn btn-primary btnmedium" value="Submit">
+            </div>
+        </form>
+    </div>
+</div>
+{% endblock %}

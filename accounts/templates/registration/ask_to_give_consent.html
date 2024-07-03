@@ -1,0 +1,20 @@
+{% extends 'partials/layout.html' %}
+
+{% load static %} {% load crispy_forms_tags%}
+
+{% block title %}
+<title>Consent Form</title>
+{% endblock %}
+
+{% block userinfo %}
+{% include 'partials/userinfo.html' %}
+{% endblock %}
+
+{%block content%}
+<div class="d-flex justify-content-center">
+    <div class="consent-card parent-consent-card shadow p-3 bg-white rounded border">
+        <h4 class="text-center">We request you to please ask your registered parent to login and provide the
+            consent to use the following app.</h4>
+    </div>
+</div>
+{% endblock %}

@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="en">
+{% load static %} {% load crispy_forms_tags%}
+
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link href="{% static 'accounts/vendor/bootstrap/css/bootstrap.min.css' %}" rel="stylesheet">
+    <link href="{% static 'accounts/css/consent.css' %}" rel="stylesheet">
+    <link href="{% static 'accounts/css/style.css' %}" rel="stylesheet">
+    <script src="{% static 'accounts/vendor/jquery/jquery.min.js' %}"></script>
+    <script src="{% static 'accounts/vendor/bootstrap/js/bootstrap.bundle.min.js' %}"></script>
+    <script src="{% static 'accounts/vendor/jquery-easing/jquery.easing.min.js' %}"></script>
+    <script src="{% static 'accounts/vendor/js/sb-admin-2.js' %}"></script>
+    <script>
+        let opacity = 0
+        let intervalID = 0
+        const temp = () => {
+            setInterval(hide, 200)
+        }
+        const hide = () => {
+            let message = document.getElementById("message")
+            opacity =
+                Number(window.getComputedStyle(message).getPropertyValue("opacity"))
+
+            if (opacity > 0) {
+                opacity = opacity - 0.1;
+                message.style.opacity = opacity
+            }
+            else {
+                clearInterval(intervalID)
+            }
+        }
+        const display = () => {
+            let message = document.getElementById("message")
+            message.style.display = "none"
+        }
+        const fadeout = () => {
+            setTimeout(temp, 20000)
+            setTimeout(display, 22000)
+        }
+        window.onload = fadeout
+    </script>
+    <title>Login</title>
+</head>
+
+<body>
+    <div style="max-height:90vh" class="full-height d-flex align-items-center justify-content-center">
+        <div class="card shadow border rounded">
+            <div class="consent-card rounded">
+                <div id="message">
+                    {% if my_messages %}
+                    <div class="mb-3 alert alert-danger" role="alert">
+                        {{ my_messages.error }}
+                    </div>
+                    {% endif %}
+                </div>
+                <form action="" method="POST">
+                    {% csrf_token %}
+                    <h2 class="text-center" style="margin:0 0 22px 0;">LOGIN</h2>
+                    <div style="margin-bottom:14px;" class="row">
+                        {{ form.username|as_crispy_field }}
+                    </div>
+                    <div style="margin-bottom:14px;" class="row">
+                        {{ form.password|as_crispy_field }}
+                    </div>
+                    <div style="margin-bottom:14px;" class="row">
+                        {{ form.groups|as_crispy_field }}
+                    </div>
+                    <div class="mt-4 d-flex">
+                        <div style="padding-right:6px;">
+                            <input type="submit" value="Login" class="btn btn-primary btnmedium">
+                        </div>
+                        <div style="padding-left:6px;">
+                            <a href="{% url 'accounts:registration' %}" class="btn btn-info btnmedium"> Sign up</a>
+                        </div>
+                    </div>
+                    <div class="my-lower-links mt-3 mb-1">
+                        <a class="forgotpass" href="{% url 'accounts:forgot_password' %}">Forgot Password?</a>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</body>
+
+</html>

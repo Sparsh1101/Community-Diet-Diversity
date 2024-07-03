@@ -1,0 +1,48 @@
+{% extends 'partials/layout.html' %}
+
+{% load static %} {% load crispy_forms_tags%}
+
+{% block title %}
+<title>Switch Coordinator</title>
+{% endblock %}
+
+{% block links %}
+<script src="{% static 'accounts/js/message_hider.js' %}"></script>
+{% if my_messages %}
+<script>
+    location.href = "#message"
+</script>
+{% endif %}
+{% endblock %}
+
+{% block userinfo %}
+{% include 'partials/userinfo.html' %}
+{% endblock %}
+
+{% block content %}
+<div class="card shadow rounded bulkCard">
+    <center><h2 class="mb-4">Choose New Coordinator</h2></center>
+    <form method="POST">
+        {% csrf_token %}
+        <table class="table table-hover">
+            <thead>
+                <tr>
+                    <th scope="col"></th>
+                    <th scope="col">Coordinator Name</th>
+                    <th scope="col">Username</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for coordinator in coordinators %}
+                    <tr>
+                        <td align="center"><input type="radio" name="new_coordinator" value={{coordinator.id}}></td>
+                        <td>{{coordinator.fname}} {{ coordinator.lname }}</td>
+                        <td>{{coordinator.user.username}}</td>
+                    </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+        <center><button type="submit" class="btn btnmedium btn-primary">Submit</button></center>
+    </form>
+</div>
+{% endblock %}

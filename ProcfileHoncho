@@ -1,0 +1,3 @@
+web: gunicorn diet.wsgi --log-file -
+worker1: celery -A diet beat -l info
+worker2: celery -A diet worker -l info

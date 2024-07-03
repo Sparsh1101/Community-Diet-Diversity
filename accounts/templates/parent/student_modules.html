@@ -1,0 +1,49 @@
+{% extends 'partials/layout.html' %}
+
+{% load static %} {% load crispy_forms_tags%}
+
+{%block links %}
+<link rel="stylesheet" href="{% static 'accounts/css/style.css' %}">
+{% endblock %}
+
+{% block title %}
+<title>Student's Form Types</title>
+{% endblock %}
+
+{% block userinfo %}
+{% include 'partials/userinfo.html' %}
+{% endblock %}
+
+{%block content%}
+
+  <div class="item-container d-flex">
+    <div class="my-card card shadow border rounded d-flex text-center">
+      <div class="card-body">
+        <h3 class="card-title mb-3">Module One</h3>
+        <a href="{% url 'accounts:parentModuleOne' student.id %}" class="btn btn-primary btnmedium">Fill Form</a>
+      </div>
+    </div>
+
+    {% comment %} <div class="my-card card shadow border rounded d-flex text-center">
+      <div class="card-body">
+        <h3 class="card-title mb-3">Module Two</h3>
+        <a href="#" class="btn btn-primary btnmedium">Fill Form</a>
+      </div>
+    </div>
+
+    <div class="my-card card shadow border rounded d-flex text-center">
+      <div class="card-body">
+        <h3 class="card-title mb-3">Module Three</h3>
+        <a href="#" class="btn btn-primary btnmedium">Fill Form</a>
+      </div>
+    </div> {% endcomment %}
+
+    <div class="my-card card shadow border rounded d-flex text-center">
+      <div class="card-body">
+        <h3 class="card-title mb-3">Physique</h3>
+        <a href="{% url 'accounts:parentPhysique' student.id %}" class="btn btn-primary btnmedium">Fill Form</a>
+      </div>
+    </div>
+  </div>
+
+{% endblock %}

@@ -1,0 +1,64 @@
+{% load static %}
+{% load sidebar_tags %}
+
+<ul class="navbar-nav ml-auto">
+
+    <div class="topbar-divider d-none d-sm-block"></div>
+
+    <!-- Nav Item - User Information -->
+    <li class="nav-item dropdown no-arrow">
+        <a class="nav-link dropdown-toggle" href="#" id="userDropdown" role="button" data-toggle="dropdown"
+            aria-haspopup="true" aria-expanded="false">
+            <span class="mr-2 d-none d-lg-inline text-gray-600 small">{{user}}</span>
+            {% if request.user|has_group:"Super Coordinators" %}
+                <img class="img-profile rounded-circle" src="{{request.user.supercoordinator.profile_pic.url}}">
+            {% elif request.user|has_group:"Coordinators" %}
+                <img class="img-profile rounded-circle" src="{{request.user.coordinatorincharge.profile_pic.url}}">
+            {% elif request.user|has_group:"Teachers" %}
+                <img class="img-profile rounded-circle" src="{{request.user.teacherincharge.profile_pic.url}}">
+            {% elif request.user|has_group:"Parents" %}
+                <img class="img-profile rounded-circle" src="{{request.user.parentsinfo.profile_pic.url}}">
+            {% elif request.user|has_group:"Students" %}
+                <img class="img-profile rounded-circle" src="{{request.user.studentsinfo.profile_pic.url}}">
+            {% endif %}
+        </a>
+        <!-- Dropdown - User Information -->
+        <div class="dropdown-menu dropdown-menu-right shadow animated--grow-in" aria-labelledby="userDropdown" style="width:unset;">
+            {% if request.user|has_group:"Super Coordinators" %}
+                <a class="dropdown-item" href="{% url 'accounts:view_supercoordinator_profile' %}">
+                    <i class="fas fa-user fa-sm fa-fw mr-2"></i>
+                    <span>My Profile</span>
+                </a>
+            {% elif request.user|has_group:"Coordinators" %}
+                <a class="dropdown-item" href="{% url 'accounts:view_coordinator_profile' %}">
+                    <i class="fas fa-user fa-sm fa-fw mr-2"></i>
+                    <span>My Profile</span>
+                </a>
+            {% elif request.user|has_group:"Teachers" %}
+                <a class="dropdown-item" href="{% url 'accounts:view_teacher_profile' %}">
+                    <i class="fas fa-user fa-sm fa-fw mr-2"></i>
+                    <span>My Profile</span>
+                </a>
+            {% elif request.user|has_group:"Parents" %}
+                <a class="dropdown-item" href="{% url 'accounts:view_parent_profile' %}">
+                    <i class="fas fa-user fa-sm fa-fw mr-2"></i>
+                    <span>My Profile</span>
+                </a>
+            {% elif request.user|has_group:"Students" %}
+                <a class="dropdown-item" href="{% url 'accounts:view_student_profile' %}">
+                    <i class="fas fa-user fa-sm fa-fw mr-2"></i>
+                    <span>My Profile</span>
+                </a>
+            {% endif %}
+            <a class="dropdown-item" href="{% url 'accounts:change_password' %}">
+                <i class="fas fa-key fa-sm fa-fw mr-2"></i>
+                <span>Change Password</span>
+            </a>
+            <a class="dropdown-item" href="" data-toggle="modal" data-target="#logoutModal">
+                <i class="fas fa-sign-out-alt fa-sm fa-fw mr-2"></i>
+                <span>Logout</span>
+            </a>
+        </div>
+    </li>
+
+</ul>

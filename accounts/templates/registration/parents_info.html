@@ -1,0 +1,89 @@
+{% extends 'partials/layout.html' %}
+
+{% load static %} {% load crispy_forms_tags%}
+
+{%block links %}
+<script src="{% static 'accounts/js/aadhar.js' %}"></script>
+{% endblock %}
+
+{% block title %}
+<title>Parent Registration</title>
+{% endblock %}
+
+
+
+{%block content%}
+<div class="col-md-12 mb-3">
+    <div class="position-relative m-4">
+        <div class="progress" style="height: 1px;">
+            <div class="progress-bar" role="progressbar" style="width: 50%;" aria-valuenow="50" aria-valuemin="0"
+                aria-valuemax="100"></div>
+        </div>
+        <a class="position-absolute top-0 start-0 translate-middle btn btn-sm btn-primary rounded-pill"
+            style="width: 2rem; height:2rem;" href="{% url 'accounts:consent' %}">1</a>
+        <a class="position-absolute top-0 start-50 translate-middle btn btn-sm btn-primary rounded-pill"
+            style="width: 2rem; height:2rem;">2</a>
+        <a class="position-absolute top-0 start-100 translate-middle btn btn-sm btn-secondary rounded-pill"
+            style="width: 2rem; height:2rem;">3</a>
+    </div>
+</div>
+<div class="d-flex justify-content-center">
+    <div class="card shadow border rounded signup-card">
+        <form action="" method="POST">
+            {{form.media}}
+
+            {% csrf_token %}
+            <h2 class="mb-4">Parent Information</h2>
+            <div class="col-md-12">
+                <div class="row">
+                    <div class="col-md-4">
+                        {{form.fname|as_crispy_field}}
+                    </div>
+                    <div class="col-md-4">
+                        {{form.mname|as_crispy_field}}
+                    </div>
+                    <div class="col-md-4">
+                        {{form.lname|as_crispy_field}}
+                    </div>
+                    <small class="form-text text-muted mb-3 mt-0">Numbers and special characters are not allowed except
+                        apostrophe.</small>
+                </div>
+            </div>
+            <div class="col-md-12">
+                <div class="row">
+                    <div class="col-md-6">
+                        {{ form.email|as_crispy_field }}
+                    </div>
+                    <div class="col-md-6">
+                        {{ form.aadhar|as_crispy_field }}
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-12">
+                <div class="row">
+                    <div class="col-md-6">
+                        {{ form.dob|as_crispy_field }}
+                    </div>
+                    <div class="col-md-6">
+                        {{form.mobile_no|as_crispy_field}}
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-12">
+                <div class="row">
+                    <div class="col-md-6">
+                        {{ form.gender|as_crispy_field }}
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-12">
+                {{user_creation_form|crispy}}
+            </div>
+            <div class="d-flex justify-content-around">
+                <a href="{% url 'accounts:consent' %}" class="btn btn-secondary greybutton btnmedium">Previous</a>
+                <input type="submit" class="btn btn-primary btnmedium" value="Next">
+            </div>
+        </form>
+    </div>
+</div>
+{% endblock %}

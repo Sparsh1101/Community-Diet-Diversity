@@ -1,0 +1,21 @@
+{% extends 'partials/layout.html' %}
+
+{% load static %} {% load crispy_forms_tags%}
+
+{% block title %}
+<title>Forbidden!</title>
+{% endblock %}
+
+{% block userinfo %}
+{% if login %}
+    {% include 'partials/userinfo.html' %}
+{% endif %}
+{% endblock %}
+
+{%block content%}
+<h1 class="text-center">FORBIDDEN!</h1>
+<h6 class="text-center">Sorry you do not have access to this page.</h6>
+<div class="d-flex justify-content-around mt-3">
+    <a href="{% url 'accounts:loginlink' %}" class="btn btn-primary btnmedium">Home</a>
+</div>
+{% endblock %}

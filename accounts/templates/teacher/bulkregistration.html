@@ -1,0 +1,90 @@
+{% extends 'partials/layout.html' %}
+
+{% load static %} {% load crispy_forms_tags%}
+
+{% block title %}
+<title>Bulk Registration</title>
+{% endblock %}
+
+{% block links %}
+<script src="{% static 'accounts/js/message_hider.js' %}"></script>
+{% if my_messages %}
+<script>
+    location.href = "#message"
+</script>
+{% endif %}
+{% endblock %}
+
+{% block userinfo %}
+{% include 'partials/userinfo.html' %}
+{% endblock %}
+
+{% block content %}
+<div class="card shadow rounded bulkCard">
+    <h2 class="mb-4">Bulk Registration</h2>
+    <div class="col-md-12 mb-4 p-0">
+        <h6><b>Step 1:</b> Download Template</h6>
+        <form action="{% url 'accounts:get_template'%}">
+            <button type="submit" class="btn btn-warning btnmedium"><i class="fa fa-download mr-1"
+                    aria-hidden="true"></i> Template</button>
+        </form>
+    </div>
+    <div class="col-md-12 mb-4 p-0">
+        <h6><b>Step 2:</b> Upload Filled Excel File</h6>
+        <p class="m-0"><b>INSTRUCTIONS:-</b></p>
+        <ul>
+            <li>Do not edit the heading rows.</li>
+            <li>Do not change the column order.</li>
+            <li>Do not edit the pre-filled “Ref ID” column in the “Parents Data” sheet.</li>
+            <li>Fill both the sheets (Parents Data & Students Data) in the template file provided above.</li>
+            <li>If the parent already has an existing account, then just enter their username in the “Username” column
+                and leave the rest of the columns empty.</li>
+            <li>For the parents whose account has to be created for them, leave the parent username column empty.</li>
+            <li>Do not fill multiple rows for the same person. (Example:- If one parent has two or more students, there
+                will be only one row of data filled for that particular parent and then that parent’s “Ref ID” can be
+                added to multiple children.)</li>
+            <li>If data for a particular parent is provided and it's Ref ID is not used in students data then that
+                particular parent won't be registered.</li>
+            <li>Data provided after an empty row will not be considered.</li>
+            <li>Aadhar Number and Email are not mandatory fields. (We highly recommend providing them since they will be
+                used for password reset.)</li>
+            <li>If no data is to be provided for non mandatory fields then leave them empty.</li>
+            <li>For Parent/Student name, numbers and special characters are not allowed except apostrophes.</li>
+            <li>Format for Date of birth can be DD-MM-YYYY or DD/MM/YYYY.</li>
+            <li>Make sure to add the correct "Ref ID" in the student's "Parent’s Ref ID" column.</li>
+            <li>For students of age 18 and above the "Parent’s Ref ID" column should be kept empty since, adult students
+                are registered independent of their parent.</li>
+            <li>Once Registration is successful do not register using the same sheet since it will generate fresh new
+                accounts for the same data.</li>
+        </ul>
+        <form action="" method="POST" enctype="multipart/form-data">
+            {% csrf_token %}
+            <div class="row">
+                <div class="col-md-8">
+                    <div class="my-2">
+                        <input type="file" class="form-control" title="Upload Filled Excel File" name="excel_file"
+                            required accept=".xlsx">
+                        <small class="form-text text-muted">Only .xlsx file format is accepted.</small>
+                    </div>
+                </div>
+            </div>
+            <button type="submit" class="btn btn-info btnmedium"><i class="fa fa-upload mr-1" aria-hidden="true"></i>
+                Upload</button>
+        </form>
+        <div id="message">
+            {% if my_messages %}
+            {% if my_messages.error %}
+            <div class="mb-0 mt-2 alert alert-danger" role="alert">
+                {{ my_messages.error }}
+            </div>
+            {% endif %}
+            {% if my_messages.success %}
+            <div class="mb-0 mt-2 alert alert-success" role="alert">
+                {{ my_messages.success }}
+            </div>
+            {% endif %}
+            {% endif %}
+        </div>
+    </div>
+</div>
+{% endblock %}

@@ -1,0 +1,70 @@
+{% extends 'partials/layout.html' %}
+
+{% load static %} {% load crispy_forms_tags%}
+
+{% block title %}
+<title>Add Students</title>
+{% endblock %}
+
+{% block links %}
+<script src="{% static 'accounts/js/message_hider.js' %}"></script>
+{% if my_messages %}
+<script>
+    location.href = "#message"
+</script>
+{% endif %}
+{% endblock %}
+
+{% block userinfo %}
+{% include 'partials/userinfo.html' %}
+{% endblock %}
+
+{% block content %}
+<div class="card shadow rounded bulkCard">
+    <center><h2 class="mb-4">Add Teachers via List</h2></center>
+    <form method="POST">
+        {% csrf_token %}
+        <div class="mb-3">
+            <input type="button" class="btn btnmedium btn-info me-3" onclick='selects()' value="Select All"/>  
+            <input type="button" class="btn btnmedium btn-warning" onclick='deSelect()' value="Deselect All"/>
+        </div>
+        <table class="table table-hover">
+            <thead>
+                <tr>
+                    <th scope="col"></th>
+                    <th scope="col">Teacher Name</th>
+                    <th scope="col">Username</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for teacher in teachers %}
+                    <tr>
+                        <td align="center"><input type="checkbox" name="chk" value={{teacher.id}}></td>
+                        <td>{{teacher.fname}} {{ teacher.lname }}</td>
+                        <td>{{teacher.user.username}}</td>
+                    </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+        <center><button type="submit" class="btn btnmedium btn-primary">Submit</button></center>
+    </form>
+</div>
+
+<script type="text/javascript">  
+    function selects(){  
+        var ele=document.getElementsByName('chk');  
+        for(var i=0; i<ele.length; i++){  
+            if(ele[i].type=='checkbox')  
+                ele[i].checked=true;  
+        }  
+    }  
+    function deSelect(){  
+        var ele=document.getElementsByName('chk');  
+        for(var i=0; i<ele.length; i++){  
+            if(ele[i].type=='checkbox')  
+                ele[i].checked=false;  
+              
+        }  
+    }             
+</script>  
+{% endblock %}

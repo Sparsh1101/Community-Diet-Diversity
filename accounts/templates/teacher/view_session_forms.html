@@ -1,0 +1,85 @@
+{% extends 'partials/layout.html' %}
+
+{% load static %} {% load crispy_forms_tags%}
+
+{%block links %}
+<link rel="stylesheet" href="{% static 'accounts/css/style.css' %}">
+{% endblock %}
+
+{% block title %}
+<title> Session Forms</title>
+{% endblock %}
+
+{% block userinfo %}
+{% include 'partials/userinfo.html' %}
+{% endblock %}
+
+{%block content%}
+
+<center><h2 class="mb-3">Session Information</h2></center>
+<div class="col-md-10 offset-md-1 mb-3">
+    <ul class="list-group">
+        <h6>
+            <li class="list-group-item"><b>Name: </b>{{ session.name }}</li>
+            <li class="list-group-item"><b>Start Date: </b>{{ session.start_date }}</li>
+            {% if end_date == None %}
+                <li class="list-group-item"><b>End Date: </b> Ongoing</li>
+            {% else %}
+                <li class="list-group-item"><b>End Date: </b>{{ session.end_date }}</li>
+            {% endif %}
+        </h6>
+    </ul>
+</div>
+
+<div class="d-flex justify-content-end mb-4">
+    <a href="{% url 'accounts:manage_forms' session.id %}" class="btn btn-info btnmedium">Manage Forms</a>
+</div>
+
+{% if results or results2 %}
+  {% if results2 %}
+    <h3 class="mb-3 text-center" style="font-weight: bolder;">OPEN FORMS</h3>
+    <div class="item-container d-flex">
+      {% for result in results2 %}
+        <div class="my-card card shadow border rounded">
+          <h5 class="card-header">{{result.2}}</h5>
+          <div class="card-body">
+            <h5 class="card-title">{{result.0}}</h5>
+            <p class="card-text"><b>Start Date:</b> {{result.1}}</p>
+            <p class="card-text"><b>No. of submissions:</b> {{result.3}}</p>
+            <p class="card-text"><b>Total Students:</b> {{result.4}}</p>
+            {% if result.2 == "None" %}
+              <a href="{% url 'accounts:get_form_details' result.5 session.id 2 %}" class="btn btn-primary btnmedium">View Info</a>
+            {% else %}
+              <a href="{% url 'accounts:get_form_details' result.5 session.id 1 %}" class="btn btn-primary btnmedium">View Info</a>
+            {% endif %}
+          </div>
+        </div>
+      {% endfor %}
+    </div>
+  {% endif %}
+
+  {% if results %}
+  <h3 class="my-3 text-center" style="font-weight: bolder;">CLOSED FORMS</h3>
+      <div class="item-container d-flex">
+      {% for result in results %}
+        <div class="my-card card shadow border rounded">
+          <h5 class="card-header">{{result.3}}</h5>
+          <div class="card-body">
+            <h5 class="card-title">{{result.0}}</h5>
+            <p class="card-text"><b>Start Date:</b> {{result.1}}</p>
+            <p class="card-text"><b>End Date:</b> {{result.2}}</p>
+            <p class="card-text"><b>No. of submissions:</b> {{result.4}}</p>
+            <p class="card-text"><b>Total Students:</b> {{result.5}}</p>
+            {% if result.3 == "None" %}
+              <a href="{% url 'accounts:get_form_details' result.6 session.id 2 %}" class="btn btn-primary btnmedium">View Info</a>
+            {% else %}
+              <a href="{% url 'accounts:get_form_details' result.6 session.id 1 %}" class="btn btn-primary btnmedium">View Info</a>
+            {% endif %}
+          </div>
+        </div>
+      {% endfor %}
+    </div>
+  {% endif %}
+{% endif %}
+
+{% endblock %}

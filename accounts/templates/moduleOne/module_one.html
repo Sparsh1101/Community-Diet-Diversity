@@ -1,0 +1,147 @@
+{% extends 'partials/layout.html' %}
+
+{% load static %} {% load crispy_forms_tags %}
+
+{%block links %}
+<link rel="stylesheet" href="{% static 'accounts/css/style.css' %}">
+{% endblock %}
+
+{% block title %}
+<title>Module One</title>
+{% endblock %}
+
+{% block userinfo %}
+{% include 'partials/userinfo.html' %}
+{% endblock %}
+
+{% block content %}
+<div class="container moduleform">
+    <div class="card shadow border rounded mt-3" style="padding:1rem 3rem">
+        <div class="row">
+            <h2 class="mb-3 text-center">{{formPre}} Module One</h2>
+            <div class="col-md-12">
+                <form action="" method="POST">
+                    {% csrf_token %}
+                    <div class="row correctlabel">
+                        <div class="col-md-12 mb-3">
+                            <p class="fw-bold mb-2">1. {{form.nutriGarden.label_tag}}
+                                {% if form.nutriGarden.errors %}
+                                <strong class="text-danger fw-bolder">
+                                    {{form.nutriGarden.errors.0}}
+                                </strong>
+                                {% endif %}
+                            </p>
+                            {% for radio in form.nutriGarden %}
+                            <div>
+                                {{ radio.tag }}
+                                <label for="id_nutriGarden_{{ forloop.counter0 }}">{{ radio.choice_label }}</label>
+                            </div>
+                            {% endfor %}
+                        </div>
+
+                        <div class="col-md-12 mb-3">
+                            <p class="fw-bold mb-2">2. {{form.source_fruits_vegetables.label_tag}}
+                                {% if form.source_fruits_vegetables.errors %}
+                                <strong class="text-danger fw-bolder">
+                                    {{form.source_fruits_vegetables.errors.0}}
+                                </strong>
+                                {% endif %}
+                            </p>
+                            {% for radio in form.source_fruits_vegetables %}
+                            <div>
+                                {{ radio.tag }}
+                                <label for="id_source_fruits_vegetables_{{ forloop.counter0 }}">{{ radio.choice_label }}</label>
+                            </div>
+                            {% endfor %}
+                        </div>
+
+                        <div class="col-md-12 mb-3">
+                            <p class="fw-bold mb-2">3. {{form.grow_own_food.label_tag}}
+                                {% if form.grow_own_food.errors %}
+                                <strong class="text-danger fw-bolder">
+                                    {{form.grow_own_food.errors.0}}
+                                </strong>
+                                {% endif %}
+                            </p>
+                            {% for radio in form.grow_own_food %}
+                            <div>
+                                {{ radio.tag }}
+                                <label for="id_grow_own_food_{{ forloop.counter0 }}">{{ radio.choice_label }}</label>
+                            </div>
+                            {% endfor %}
+
+                        </div>
+
+
+                        <div class="col-md-12 mb-3">
+                            <p class="fw-bold mb-2">4. {{form.if_grow_what.label_tag}}</p>
+                            {{form.if_grow_what|as_crispy_field}}
+                        </div>
+
+
+
+                        <div class="col-md-12 mb-3 form-group">
+                            <p class="fw-bold mb-2">5. {{form.reason_gardening.label_tag}}
+                                {% if form.reason_gardening.errors %}
+                                <strong class="text-danger fw-bolder">
+                                    {{form.reason_gardening.errors.0}}
+                                </strong>
+                                {% endif %}
+                            </p>
+                            {% for radio in form.reason_gardening %}
+                            <div>
+                                {{ radio.tag }}
+                                <label for="id_reason_gardening_{{ forloop.counter0 }}">{{ radio.choice_label }}</label>
+                            </div>
+                            {% endfor %}
+                        </div>
+
+
+                        <div class="col-md-12 mb-3">
+                            <p class="fw-bold mb-2">6. {{form.healthy_diet.label_tag}}
+                                {% if form.healthy_diet.errors %}
+                                <strong class="text-danger fw-bolder">
+                                    {{form.healthy_diet.errors.0}}
+                                </strong>
+                                {% endif %}
+                            </p>
+                            {% for radio in form.healthy_diet %}
+                            <div>
+                                {{ radio.tag }}
+                                <label for="id_healthy_diet_{{ forloop.counter0 }}">{{ radio.choice_label }}</label>
+                            </div>
+                            {% endfor %}
+                        </div>
+
+
+                        <div class="col-md-12 mb-3">
+                            <p class="fw-bold mb-2">7. {{form.imp_nutrients.label_tag}}
+                                {% if form.imp_nutrients.errors %}
+                                <strong class="text-danger fw-bolder">
+                                    {{form.imp_nutrients.errors.0}}
+                                </strong>
+                                {% endif %}
+                            </p>
+                            {% for radio in form.imp_nutrients %}
+                            <div>
+                                {{ radio.tag }}
+                                <label for="id_imp_nutrients_{{ forloop.counter0 }}">{{ radio.choice_label }}</label>
+                            </div>
+                            {% endfor %}
+                        </div>
+                        <div class="d-flex justify-content-around">
+                            <div>
+                                <input type="submit" class="btn btn-warning btnmedium" value="Save draft"
+                                    formaction="{% url 'accounts:draft' %}">
+                            </div>
+                            <div>
+                                <input type="submit" class="btn btn-primary btnmedium" value="Next">
+                            </div>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

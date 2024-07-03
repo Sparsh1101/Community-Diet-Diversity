@@ -1,0 +1,35 @@
+{% extends 'partials/layout.html' %}
+
+{% load static %} {% load crispy_forms_tags%}
+
+{%block links %}
+<link rel="stylesheet" href="{% static 'accounts/css/style.css' %}">
+{% endblock %}
+
+{% block title %}
+<title>Parent Dashboard</title>
+{% endblock %}
+
+{% block userinfo %}
+{% include 'partials/userinfo.html' %}
+{% endblock %}
+
+{%block content%}
+
+<div class="d-flex justify-content-end mb-4">
+    <a href="{% url 'accounts:add_student_form' %}" class="btn btn-info btnmedium">Add Student</a>
+</div>
+<div class="item-container d-flex" id="parentCard">
+    {% for student in students %}
+    <div class="my-card card shadow">
+        <div class="card-body">
+            <center>
+                <h3 class="card-title mb-3">{{ student.fname }} {{ student.lname }}</h3>
+                <a href="{% url 'accounts:parent_dashboard_student' student.id %}" class="btn btn-primary btnmedium">Edit Form</a>
+            </center>
+        </div>
+    </div>
+    {% endfor %}
+</div>
+
+{% endblock %}

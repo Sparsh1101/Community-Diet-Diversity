@@ -1,0 +1,39 @@
+{% extends 'partials/layout.html' %}
+
+{% load static %} {% load crispy_forms_tags%}
+
+{% block title %}
+<title>Student Dashboard</title>
+{% endblock %}
+
+{% block userinfo %}
+{% include 'partials/userinfo.html' %}
+{% endblock %}
+
+{%block content%}
+
+    <center><h1>Information Forms</h1></center>
+    <div class="d-flex" id="parentCard">
+        <div class="my-card card shadow border rounded">
+            <div class="card-body">
+                <center><b><h3 class="card-title mb-3">My Physique</h3></b></center>
+                <div class="d-flex justify-content-around">
+                <a href="{% url 'accounts:physique' %}" class="btn btn-primary btnmedium">Fill Form</a>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <center><h1>Module Forms</h1></center>
+    <div class="d-flex" id="parentCard">
+        <div class="my-card card shadow border rounded">
+            <div class="card-body">
+                <center><b><h3 class="card-title mb-3">Module One</h3></b></center>
+                <div class="d-flex justify-content-around">
+                <a href="{% url 'accounts:module_one' %}" class="btn btn-primary btnmedium">Fill Form</a>
+                </div>
+            </div>
+        </div>
+    </div>
+
+{% endblock %}

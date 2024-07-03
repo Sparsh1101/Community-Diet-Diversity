@@ -1,0 +1,60 @@
+{% extends 'partials/layout.html' %}
+
+{% load static %} {% load crispy_forms_tags%}
+
+{% block title %}
+<title>Add Students</title>
+{% endblock %}
+
+{% block links %}
+<script src="{% static 'accounts/js/message_hider.js' %}"></script>
+{% if my_messages %}
+<script>
+    location.href = "#message"
+</script>
+{% endif %}
+{% endblock %}
+
+{% block userinfo %}
+{% include 'partials/userinfo.html' %}
+{% endblock %}
+
+{% block content %}
+<div class="card shadow rounded bulkCard">
+    <h2 class="mb-4">Add Students</h2>
+    <div class="col-md-12 mb-4 p-0">
+        <h6><b>Step 1:</b> Download Template</h6>
+        <form action="{% url 'accounts:get_session_students_template'%}">
+            <button type="submit" class="btn btn-warning btnmedium"><i class="fa fa-download mr-1" aria-hidden="true"></i> Template</button>
+        </form>
+    </div>
+    <div class="col-md-12 p-0">
+        <h6><b>Step 2:</b> Upload Filled Excel File</h6>
+        <p class="m-0"><b>INSTRUCTIONS:-</b></p>
+        <ul>
+            <li>Do not edit the column heading row.</li>
+            <li>Do not change the column order.</li>
+            <li>Data provided after an empty row will not be considered.</li>
+        </ul>
+        <form action="" method="POST" enctype="multipart/form-data">
+            {% csrf_token %}
+            <div class="row">
+                <div class="col-md-8">
+                    <div class="my-2">
+                        <input type="file" class="form-control" title="Upload Filled Excel File" name="excel_file" required accept=".xlsx">
+                        <small class="form-text text-muted">Only .xlsx file format is accepted.</small>
+                    </div>
+                </div>
+            </div>
+            <button type="submit" class="btn btn-info btnmedium"><i class="fa fa-upload mr-1" aria-hidden="true"></i> Upload</button>
+        </form>
+        <div id="message">
+            {% if my_messages %}
+                <div class="mb-0 mt-2 alert alert-danger" role="alert">
+                    {{ my_messages.error }}
+                </div>
+            {% endif %}
+        </div>
+    </div>
+</div>
+{% endblock %}
